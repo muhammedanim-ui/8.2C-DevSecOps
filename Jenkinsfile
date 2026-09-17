@@ -18,11 +18,27 @@ pipeline {
         }
 
         stage('Code Analysis') {
-            steps {
-                echo 'Analyse the source code to ensure code quality and industry coding standards.'
-                echo 'Tool: SonarQube'
-            }
+    steps {
+        echo 'Analyse the source code to ensure code quality and industry coding standards.'
+        echo 'Tool: SonarQube'
+    }
+}
+
+stage('SonarCloud Analysis') {
+    steps {
+        withCredentials([string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN')]) {
+            bat '''
+                echo Starting SonarCloud Analysis...
+
+                curl -L -o sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-7.1.0.6387-windows-x64.zip
+
+                powershell -Command "Expand-Archive -Path sonar-scanner.zip -DestinationPath . -Force"
+
+                sonar-scanner-7.1.0.6387-windows-x64\\bin\\sonar-scanner.bat
+            '''
         }
+    }
+}
 
         stage('Security Scan') {
             steps {
@@ -45,11 +61,11 @@ pipeline {
             }
         }
 
-        stage('Deploy to Production') {
+              stage('Deploy to Production') {
             steps {
                 echo 'Deploy the application to the production server.'
                 echo 'Tool: AWS EC2'
             }
         }
     }
-}
+} 
