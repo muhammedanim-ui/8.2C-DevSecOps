@@ -1,4 +1,3 @@
-
 pipeline {
     agent any
 
@@ -21,7 +20,7 @@ pipeline {
         stage('Run Tests') {
             steps {
                 echo 'Running unit and integration tests.'
-                bat 'npm test'
+                bat 'npm test', returnStatus: true
             }
 
             post {
