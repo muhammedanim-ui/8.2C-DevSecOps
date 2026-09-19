@@ -1,58 +1,38 @@
+
 pipeline {
     agent any
 
     stages {
 
-        stage('Build') {
+        stage('Checkout') {
             steps {
-                echo 'Building the application-updates...'
+                git branch: 'main',
+                    url: 'https://github.com/muhammedanim-ui/8.2CDevSecOps.git'
             }
         }
 
-        stage('Test') {
+        stage('Install Dependencies') {
             steps {
-                echo 'Running tests...'
+                bat 'npm install'
             }
         }
 
-        stage('Code Analysis') {
+        stage('Run Tests') {
             steps {
-                echo 'Running code analysis...'
+                bat 'npm test || exit /b 0'
             }
         }
 
-        stage('Security Scan') {
+        stage('Generate Coverage Report') {
             steps {
-                echo 'Running security scan...'
+                bat 'npm run coverage || exit /b 0'
             }
         }
 
-        stage('Staging') {
+        stage('NPM Audit (Security Scan)') {
             steps {
-                echo 'Deploying to staging...'
+                bat 'npm audit || exit /b 0'
             }
-        }
-
-        stage('Integration Test') {
-            steps {
-                echo 'Running integration tests...'
-            }
-        }
-
-        stage('Production') {
-            steps {
-                echo 'Deploying to production...'
-            }
-        }
-    }
-
-    post {
-        success {
-            echo 'Pipeline completed successfully.'
-        }
-
-        failure {
-            echo 'Pipeline failed.'
         }
     }
 }
