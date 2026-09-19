@@ -26,7 +26,7 @@ pipeline {
             post {
                 success {
                     emailext(
-                        to: 'YOUR_EMAIL@gmail.com',
+                        to: 'muhammedanim741@gmail.com',
                         subject: "Jenkins - Run Tests SUCCESS - Build #${BUILD_NUMBER}",
                         body: """The Run Tests stage completed successfully.
 
@@ -41,7 +41,7 @@ The Jenkins console log is attached for reference.""",
 
                 failure {
                     emailext(
-                        to: 'YOUR_EMAIL@gmail.com',
+                        to: 'muhammedanim741@gmail.com',
                         subject: "Jenkins - Run Tests FAILURE - Build #${BUILD_NUMBER}",
                         body: """The Run Tests stage has failed.
 
@@ -72,7 +72,7 @@ Please check the attached Jenkins console log for details.""",
             post {
                 success {
                     emailext(
-                        to: 'YOUR_EMAIL@gmail.com',
+                        to: 'muhammedanim741@gmail.com',
                         subject: "Jenkins - NPM Security Scan SUCCESS - Build #${BUILD_NUMBER}",
                         body: """The NPM Audit security scan completed successfully.
 
@@ -87,7 +87,7 @@ The Jenkins console log containing the security scan results is attached.""",
 
                 failure {
                     emailext(
-                        to: 'YOUR_EMAIL@gmail.com',
+                        to: 'muhammedanim741@gmail.com',
                         subject: "Jenkins - NPM Security Scan FAILURE - Build #${BUILD_NUMBER}",
                         body: """The NPM Audit security scan has reported vulnerabilities or failed.
 
